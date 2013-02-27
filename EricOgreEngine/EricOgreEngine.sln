@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EricOgreEngine", "EricOgreEngine\EricOgreEngine.vcxproj", "{51673DDF-DAAE-43D8-B076-4FA5E4B8CE9E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OgreSampleApp", "..\OgreSampleApp\OgreSampleApp\OgreSampleApp.vcxproj", "{6F01A7C0-38E5-4FA8-9AFB-67ADEEA109E1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Final|Win32 = Final|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{51673DDF-DAAE-43D8-B076-4FA5E4B8CE9E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{51673DDF-DAAE-43D8-B076-4FA5E4B8CE9E}.Debug|Win32.Build.0 = Debug|Win32
+		{51673DDF-DAAE-43D8-B076-4FA5E4B8CE9E}.Final|Win32.ActiveCfg = Release|Win32
+		{51673DDF-DAAE-43D8-B076-4FA5E4B8CE9E}.Final|Win32.Build.0 = Release|Win32
+		{51673DDF-DAAE-43D8-B076-4FA5E4B8CE9E}.Release|Win32.ActiveCfg = Release|Win32
+		{51673DDF-DAAE-43D8-B076-4FA5E4B8CE9E}.Release|Win32.Build.0 = Release|Win32
+		{6F01A7C0-38E5-4FA8-9AFB-67ADEEA109E1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6F01A7C0-38E5-4FA8-9AFB-67ADEEA109E1}.Debug|Win32.Build.0 = Debug|Win32
+		{6F01A7C0-38E5-4FA8-9AFB-67ADEEA109E1}.Final|Win32.ActiveCfg = Release|Win32
+		{6F01A7C0-38E5-4FA8-9AFB-67ADEEA109E1}.Final|Win32.Build.0 = Release|Win32
+		{6F01A7C0-38E5-4FA8-9AFB-67ADEEA109E1}.Release|Win32.ActiveCfg = Release|Win32
+		{6F01A7C0-38E5-4FA8-9AFB-67ADEEA109E1}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
