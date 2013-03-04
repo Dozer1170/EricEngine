@@ -15,7 +15,9 @@ namespace EricOgreEngine
 		void Init(std::string windowHndStr);
 		void Update(float deltaTime);
 		void LateUpdate(float deltaTime);
-		bool MouseButtonPressed(OIS::MouseButtonID buttonID);
+		bool GetMouseButtonDown(OIS::MouseButtonID buttonID);
+		bool GetMouseButtonPressed(OIS::MouseButtonID buttonID);
+		bool GetMouseButtonReleased(OIS::MouseButtonID buttonID);
 		Point* GetMousePosition(void);
 		Point* GetMouseDelta(void);
 		bool IsKeyDown(OIS::KeyCode key);
@@ -26,6 +28,8 @@ namespace EricOgreEngine
 		static EngineInputManager* GetInstance(void);
 	private:
 		EngineInputManager(void);
+
+		void UpdatePreviousMouseState(void);
 
 		// OIS::KeyListener
 		bool keyPressed( const OIS::KeyEvent &arg );
@@ -40,6 +44,7 @@ namespace EricOgreEngine
 		OIS::Mouse    *mMouse;
 		OIS::Keyboard *mKeyboard;
 
+		OIS::MouseState mPrevMouseState;
 		Point *mPreviousMousePosition;
 		Point *mMouseDelta;
 

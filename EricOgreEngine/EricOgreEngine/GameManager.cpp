@@ -5,6 +5,7 @@
 #include "EngineInputManager.h"
 #include "TerrainManager.h"
 #include "Camera.h"
+#include "SoundManager.h"
 #include <Caelum.h>
 #include <NxOgre.h>
 #include <Critter.h>
@@ -124,6 +125,7 @@ namespace EricOgreEngine
 	void GameManager::Update(float deltaTime)
 	{
 		mInputManager->Update(deltaTime);
+		mSoundManager->FrameStarted(mActiveCamera->GetCameraTranslationNode(), deltaTime);
 
 		std::vector<GameObject*>::iterator it;
 		for(it = mGameObjects.begin(); it != mGameObjects.end(); it++)
@@ -333,6 +335,9 @@ namespace EricOgreEngine
 		mVisualDebuggerNode->setVisible(true);
 		*/
 #endif
+		//Init sound manager
+		mSoundManager = new SoundManager();
+		mSoundManager->Initialize();
 
 		setupResources();
 

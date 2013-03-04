@@ -51,6 +51,9 @@
     <ClInclude Include="PhysicsCallback.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -81,6 +84,9 @@
       <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsCallback.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>

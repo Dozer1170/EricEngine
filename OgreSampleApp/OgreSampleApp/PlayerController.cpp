@@ -65,5 +65,11 @@ void PlayerController::Update(float deltaTime)
 	{
 		mShip->Pitch(Ogre::Degree(1));
 	}
+
+	if(EngineInputManager::GetInstance()->GetMouseButtonPressed(OIS::MouseButtonID::MB_Left))
+	{
+		mShip->FireLaser();
+	}
+
 	strat->SetLinearVelocity(finalVel.x, finalVel.y, finalVel.z);
 }

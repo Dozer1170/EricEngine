@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Ship.h"
 #include "EngineInputManager.h"
+#include "SoundManager.h"
 #include "Point.h"
 #include "PhysicsStrategy.h"
 #include "PlayerController.h"
@@ -22,6 +23,8 @@ Ship::~Ship(void)
 
 void Ship::Start(void)
 {
+	mLaserSound = SoundManager::getSingletonPtr()->CreateSound(Ogre::String("blaster.wav"));
+
 	mVelocity = 0;
 	mAcceleration = 100.0f;
 
@@ -46,4 +49,10 @@ void Ship::SetPlayerController(PlayerController *controller)
 void Ship::OnCollision(GameObject *objectHit)
 {
 	mVelocity = 0;
+}
+
+void Ship::FireLaser(void)
+{
+	int channelFireGun = 0;
+	SoundManager::getSingletonPtr()->PlaySound(mLaserSound, &GetSceneNode(), &channelFireGun);
 }

@@ -14,9 +14,12 @@ public:
 
 	void SetPlayerController(PlayerController *controller);
 
+	void FireLaser(void);
+
 	float mVelocity;
 	float mAcceleration;
 private:
 	PlayerController *mPlayerController;
+	int mLaserSound;
 };
 

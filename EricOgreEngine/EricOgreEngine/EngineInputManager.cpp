@@ -38,6 +38,7 @@ namespace EricOgreEngine
 
 		mPreviousMousePosition = new Point(mMouse->getMouseState().X.abs, mMouse->getMouseState().Y.abs);
 		mMouseDelta = new Point(0,0);
+		UpdatePreviousMouseState();
 	}
 
 	EngineInputManager* EngineInputManager::GetInstance(void)
@@ -48,6 +49,16 @@ namespace EricOgreEngine
 		return m_pInstance;
 	}
 
+	void EngineInputManager::UpdatePreviousMouseState(void)
+	{
+		OIS::MouseState currentState = mMouse->getMouseState();
+		mPrevMouseState = OIS::MouseState();
+		mPrevMouseState.buttons = currentState.buttons;
+		mPrevMouseState.X = currentState.X;
+		mPrevMouseState.Y = currentState.Y;
+		mPrevMouseState.Z = currentState.Z;
+	}
+
 	void EngineInputManager::Update(float deltaTime)
 	{
 		//Need to capture/update each device
@@ -56,8 +67,6 @@ namespace EricOgreEngine
 
 		int currX = mMouse->getMouseState().X.abs;
 		int currY = mMouse->getMouseState().Y.abs;
-		//mMouseDelta->x = mPreviousMousePosition->x - currX;
-		//mMouseDelta->y = mPreviousMousePosition->y - currY;
 		mMouseDelta->x = mMouse->getMouseState().X.rel;
 		mMouseDelta->y = mMouse->getMouseState().Y.rel;
 		mPreviousMousePosition->x = currX;
@@ -71,11 +80,25 @@ namespace EricOgreEngine
 		{
 			it->second = false;
 		}
+
+		UpdatePreviousMouseState();
 	}
 
-	bool EngineInputManager::MouseButtonPressed(OIS::MouseButtonID buttonID)
+	bool EngineInputManager::GetMouseButtonDown(OIS::MouseButtonID buttonID)
 	{
 		return mMouse->getMouseState().buttonDown(buttonID);
+	}
+
+	bool EngineInputManager::GetMouseButtonPressed(OIS::MouseButtonID buttonID)
+	{
+		return mMouse->getMouseState().buttonDown(buttonID) 
+			&& !mPrevMouseState.buttonDown(buttonID);
+	}
+
+	bool EngineInputManager::GetMouseButtonReleased(OIS::MouseButtonID buttonID)
+	{
+		return !mMouse->getMouseState().buttonDown(buttonID) 
+			&& mPrevMouseState.buttonDown(buttonID);
 	}
 
 	Point* EngineInputManager::GetMousePosition(void)

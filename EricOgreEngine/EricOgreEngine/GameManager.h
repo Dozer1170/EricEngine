@@ -32,6 +32,7 @@ namespace EricOgreEngine
 	class EngineInputManager;
 	class TerrainManager;
 	class Camera;
+	class SoundManager;
 
 	class DLL_EXPORT GameManager : public Ogre::FrameListener, public Ogre::WindowEventListener
 	{
@@ -89,6 +90,7 @@ namespace EricOgreEngine
 		Camera* mActiveCamera;
 		EngineInputManager* mInputManager;
 		TerrainManager* mTerrainManager;
+		SoundManager* mSoundManager;
 
 		Scene* mCurrentScene;
 		std::vector<GameObject*> mGameObjects;
