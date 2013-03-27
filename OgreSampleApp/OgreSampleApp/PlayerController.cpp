@@ -13,12 +13,12 @@ PlayerController::PlayerController(Ship *controlledShip)
 {
 	mShip = controlledShip;
 
-	Ogre::SceneNode* cameraTranslationNode = GameManager::GetInstance()->GetCamera()->GetCameraTranslationNode();
+	Ogre::SceneNode* cameraTranslationNode = GameManager::GetInstance()->GetCamera()->GetCameraNode();
 	mShip->AddChild(cameraTranslationNode);
 	Ogre::Vector3 cameraPosition = mShip->GetOrientation().xAxis() * 10;
 	cameraPosition.y += 1;
 	cameraTranslationNode->setPosition(cameraPosition);
-	GameManager::GetInstance()->GetCamera()->GetOgreCamera()->lookAt
+	GameManager::GetInstance()->GetCamera()->LookAt
 		(mShip->GetGlobalPosition() + mShip->GetOrientation().xAxis() * -200);
 }
 

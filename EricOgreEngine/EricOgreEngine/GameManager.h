@@ -25,6 +25,13 @@ namespace Critter
 	class Renderable;
 }
 
+namespace CEGUI
+{
+	class OgreRenderer;
+	class System;
+	class Window;
+}
+
 namespace EricOgreEngine
 {
 	class Scene;
@@ -52,6 +59,8 @@ namespace EricOgreEngine
 		GameManager(void);
 		~GameManager(void);
 		void Update(float deltaTime);
+		void SetupGUI(void);
+		void CreateGUIFrameListener(void);
 		bool setup(void);
 		void run(void);
 		bool configure(void);
@@ -84,6 +93,10 @@ namespace EricOgreEngine
 		Critter::RenderSystem* mRenderSystem;
 		Critter::Renderable* mVisualDebuggerRenderable;
 		Ogre::SceneNode* mVisualDebuggerNode;
+
+		CEGUI::OgreRenderer* mGUIRenderer;
+		CEGUI::System* mGUISystem;
+		CEGUI::Window* mEditorGuiSheet;
 
 		bool mShutDown;
 

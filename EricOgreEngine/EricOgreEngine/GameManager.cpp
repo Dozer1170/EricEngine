@@ -9,6 +9,8 @@
 #include <Caelum.h>
 #include <NxOgre.h>
 #include <Critter.h>
+#include <CEGUI.h>
+#include <RendererModules\Ogre\CEGUIOgreRenderer.h>
 
 namespace EricOgreEngine
 {
@@ -27,6 +29,9 @@ namespace EricOgreEngine
 		mCurrentScene(nullptr),
 		mCaelumSystem(nullptr),
 		mWorld(nullptr),
+		mGUIRenderer(nullptr),
+		mGUISystem(nullptr),
+		mEditorGuiSheet(nullptr),
 		mLastUpdateTime(0),
 		mDeltaTime(0),
 		mGameObjects()
@@ -40,6 +45,11 @@ namespace EricOgreEngine
 		windowClosed(mWindow);
 		delete mRoot;
 		mWorld->destroyWorld();
+
+		if(mEditorGuiSheet)
+        {
+            CEGUI::WindowManager::getSingleton().destroyWindow(mEditorGuiSheet);
+        }
 	}
 
 	GameManager* GameManager::GetInstance(void)
@@ -125,7 +135,7 @@ namespace EricOgreEngine
 	void GameManager::Update(float deltaTime)
 	{
 		mInputManager->Update(deltaTime);
-		mSoundManager->FrameStarted(mActiveCamera->GetCameraTranslationNode(), deltaTime);
+		mSoundManager->FrameStarted(mActiveCamera->GetCameraNode(), deltaTime);
 
 		std::vector<GameObject*>::iterator it;
 		for(it = mGameObjects.begin(); it != mGameObjects.end(); it++)
@@ -147,6 +157,9 @@ namespace EricOgreEngine
 			mCaelumSystem->updateSubcomponents(deltaTime);
 			mCaelumSystem->notifyCameraChanged(mActiveCamera->GetOgreCamera());
 		}
+
+		//Need to inject timestamps to CEGUI System.
+		CEGUI::System::getSingleton().injectTimePulse(deltaTime);
 
 		if(EngineInputManager::GetInstance()->IsKeyDown(OIS::KC_ESCAPE))
 			mShutDown = true;
@@ -306,7 +319,7 @@ namespace EricOgreEngine
 		mDefaultMaterial->setRestitution(0.1f);
 		mDefaultMaterial->setDynamicFriction(0.9f);
 		mDefaultMaterial->setStaticFriction(0.5f);
-  
+
 		// Plane creation
 		mScene->createSceneGeometry(NxOgre::PlaneGeometryDescription());
 
@@ -359,8 +372,29 @@ namespace EricOgreEngine
 
 		mTerrainManager = TerrainManager::GetInstance();
 
+		SetupGUI();
+
 		return true;
 	};
+
+	void GameManager::SetupGUI(void)
+	{
+		// Set up GUI system
+		mGUIRenderer = &CEGUI::OgreRenderer::bootstrapSystem();
+
+        CEGUI::Imageset::setDefaultResourceGroup("Imagesets");
+		CEGUI::Font::setDefaultResourceGroup("Fonts");
+		CEGUI::Scheme::setDefaultResourceGroup("Schemes");
+		CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
+		CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
+
+		CEGUI::SchemeManager::getSingleton().create("TaharezLook.scheme");
+		CEGUI::System::getSingleton().setDefaultMouseCursor("TaharezLook", "MouseArrow");
+
+		CEGUI::Window *guiRoot = CEGUI::WindowManager::getSingleton().loadWindowLayout("TextDemo.layout"); 
+		CEGUI::System::getSingleton().setGUISheet(guiRoot);
+	}
+
 	//-------------------------------------------------------------------------------------
 	bool GameManager::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	{

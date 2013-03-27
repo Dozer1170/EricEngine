@@ -6,17 +6,14 @@ namespace EricOgreEngine
 {
 	Camera::Camera(void)
 		: mCamera(nullptr),
-		cameraNode(nullptr),
-		cameraRollNode(nullptr),
-		cameraPitchNode(nullptr),
-		cameraYawNode(nullptr)
+		mCameraNode(nullptr)
 	{
 		// Create the camera
 		mCamera = GameManager::GetInstance()->GetSceneManager()->createCamera("PlayerCam");
 		mCamera->setNearClipDistance(0.1f);
 
-		cameraNode = GameManager::GetInstance()->GetSceneManager()->getRootSceneNode()->createChildSceneNode();
-		cameraNode->attachObject(mCamera);
+		mCameraNode = GameManager::GetInstance()->GetSceneManager()->getRootSceneNode()->createChildSceneNode();
+		mCameraNode->attachObject(mCamera);
 	}
 
 
@@ -32,9 +29,19 @@ namespace EricOgreEngine
 		}
 	}
 
-	Ogre::SceneNode* Camera::GetCameraTranslationNode(void)
+	void Camera::LookAt(Ogre::Vector3& point)
 	{
-		return cameraNode;
+		mCameraNode->lookAt(point, Ogre::Node::TransformSpace::TS_WORLD);
+	}
+
+	void Camera::LookAt(float x, float y, float z)
+	{
+		mCameraNode->lookAt(Ogre::Vector3(x,y,z), Ogre::Node::TransformSpace::TS_WORLD);
+	}
+
+	Ogre::SceneNode* Camera::GetCameraNode(void)
+	{
+		return mCameraNode;
 	}
 
 	Ogre::Camera* Camera::GetOgreCamera(void)

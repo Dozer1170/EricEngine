@@ -2,6 +2,7 @@
 #include "EngineInputManager.h"
 #include <OISEvents.h>
 #include <OISInputManager.h>
+#include <CEGUISystem.h>
 #include "Point.h"
 
 namespace EricOgreEngine
@@ -143,27 +144,57 @@ namespace EricOgreEngine
 
 	bool EngineInputManager::keyPressed( const OIS::KeyEvent &arg )
 	{
+		CEGUI::System &sys = CEGUI::System::getSingleton();
+		sys.injectKeyDown(arg.key);
+		sys.injectChar(arg.text);
 		return true;
 	}
 
 	bool EngineInputManager::keyReleased( const OIS::KeyEvent &arg )
 	{
 		(*mKeysReleasedThisFrameMap)[arg.key] = true;
+		CEGUI::System::getSingleton().injectKeyUp(arg.key);
 		return true;
 	}
 
 	bool EngineInputManager::mouseMoved( const OIS::MouseEvent &arg )
 	{
+		CEGUI::System &sys = CEGUI::System::getSingleton();
+		sys.injectMouseMove(arg.state.X.rel, arg.state.Y.rel);
+		// Scroll wheel.
+		if (arg.state.Z.rel)
+			sys.injectMouseWheelChange(arg.state.Z.rel / 120.0f);
+
 		return true;
 	}
 
 	bool EngineInputManager::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 	{
+		CEGUI::System::getSingleton().injectMouseButtonDown(ConvertButtonPressToCEGUI(id));
 		return true;
 	}
 
 	bool EngineInputManager::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 	{
+		CEGUI::System::getSingleton().injectMouseButtonUp(ConvertButtonPressToCEGUI(id));
 		return true;
+	}
+
+	CEGUI::MouseButton EngineInputManager::ConvertButtonPressToCEGUI(OIS::MouseButtonID button)
+	{
+		switch (button)
+		{
+		case OIS::MB_Left:
+			return CEGUI::LeftButton;
+ 
+		case OIS::MB_Right:
+			return CEGUI::RightButton;
+ 
+		case OIS::MB_Middle:
+			return CEGUI::MiddleButton;
+ 
+		default:
+			return CEGUI::LeftButton;
+		}
 	}
 }

@@ -4,6 +4,11 @@
 #include "OISKeyboard.h"
 #include "OISMouse.h"
 
+namespace CEGUI
+{
+	enum MouseButton;
+}
+
 namespace EricOgreEngine
 {
 	class Point;
@@ -30,6 +35,7 @@ namespace EricOgreEngine
 		EngineInputManager(void);
 
 		void UpdatePreviousMouseState(void);
+		CEGUI::MouseButton ConvertButtonPressToCEGUI(OIS::MouseButtonID button);
 
 		// OIS::KeyListener
 		bool keyPressed( const OIS::KeyEvent &arg );

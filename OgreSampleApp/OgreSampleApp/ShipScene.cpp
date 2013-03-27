@@ -39,8 +39,8 @@ void ShipScene::load(void)
 
 	TerrainManager::GetInstance()->CreateTerrain("ShipSceneTerrain", "dat", "terrain.png", "tstLight", 513, 12000.0f, 600);
  
-	manager->GetCamera()->GetCameraTranslationNode()->setPosition(Ogre::Vector3(0, 300, -100));
-	manager->GetCamera()->GetOgreCamera()->lookAt(0,300,0);
+	manager->GetCamera()->GetCameraNode()->setPosition(Ogre::Vector3(0, 300, -100));
+	manager->GetCamera()->LookAt(0,300,0);
 	Ship* ship = new Ship("Ship1", "transportship.mesh", Ogre::Vector3(0,300,0), 40.0f);
 	PlayerController* controller = new PlayerController(ship);
 	ship->SetPlayerController(controller);

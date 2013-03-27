@@ -10,18 +10,14 @@ namespace EricOgreEngine
 		Camera(void);
 		~Camera(void);
 		void TrySetInfiniteFarClip(Ogre::Root& root);
-		Ogre::SceneNode* GetCameraTranslationNode(void);
-		Ogre::SceneNode* GetCameraYawNode(void);
-		Ogre::SceneNode* GetCameraPitchNode(void);
-		Ogre::SceneNode* GetCameraRollNode(void);
+		Ogre::SceneNode* GetCameraNode(void);
 		Ogre::Camera* GetOgreCamera(void);
+		void LookAt(Ogre::Vector3& point);
+		void LookAt(float x, float y, float z);
 
 	private:
 		Ogre::Camera* mCamera;
-		Ogre::SceneNode *cameraNode;
-		Ogre::SceneNode *cameraYawNode;
-		Ogre::SceneNode *cameraPitchNode;
-		Ogre::SceneNode *cameraRollNode;
+		Ogre::SceneNode *mCameraNode;
 	};
 }
 #endif
