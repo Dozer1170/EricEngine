@@ -184,7 +184,7 @@ namespace EricOgreEngine
 		mRoot->startRendering();
 
 		// clean up
-		DestroyScene();
+		//DestroyScene();
 	}
 
 	bool GameManager::configure(void)
@@ -391,7 +391,7 @@ namespace EricOgreEngine
 		CEGUI::SchemeManager::getSingleton().create("TaharezLook.scheme");
 		CEGUI::System::getSingleton().setDefaultMouseCursor("TaharezLook", "MouseArrow");
 
-		CEGUI::Window *guiRoot = CEGUI::WindowManager::getSingleton().loadWindowLayout("TextDemo.layout"); 
+		CEGUI::Window *guiRoot = CEGUI::WindowManager::getSingleton().loadWindowLayout("TextDemo.layout");
 		CEGUI::System::getSingleton().setGUISheet(guiRoot);
 	}
 
@@ -403,8 +403,8 @@ namespace EricOgreEngine
 
 		if(mShutDown)
 		{
-			mCaelumSystem->~CaelumSystem();
-			DestroyScene();
+			//mCaelumSystem->~CaelumSystem();
+			//DestroyScene();
 			return false;
 		}
 
