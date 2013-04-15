@@ -390,8 +390,11 @@ namespace EricOgreEngine
 
 		CEGUI::SchemeManager::getSingleton().create("TaharezLook.scheme");
 		CEGUI::System::getSingleton().setDefaultMouseCursor("TaharezLook", "MouseArrow");
+	}
 
-		CEGUI::Window *guiRoot = CEGUI::WindowManager::getSingleton().loadWindowLayout("TextDemo.layout");
+	void GameManager:LoadGUILayout(std::string layout)
+	{
+		CEGUI::Window *guiRoot = CEGUI::WindowManager::getSingleton().loadWindowLayout(layout);
 		CEGUI::System::getSingleton().setGUISheet(guiRoot);
 	}
 

@@ -50,6 +50,7 @@ namespace EricOgreEngine
 		void LoadScene(Scene& scene);
 		void DestroyScene(void);
 		void SetCaelumSystem(Caelum::CaelumSystem::CaelumComponent components);
+		void LoadGUILayout(std::string layout);
 		Ogre::SceneManager* GetSceneManager(void);
 		Critter::RenderSystem* GetRenderSystem(void);
 		Camera* GetCamera(void);

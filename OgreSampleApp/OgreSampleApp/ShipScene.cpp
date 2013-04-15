@@ -46,6 +46,8 @@ void ShipScene::load(void)
 	ship->SetPlayerController(controller);
 
 	Ship* shipTwo = new Ship("Ship2", "transportship.mesh", Ogre::Vector3(-40, 300, 0), 40.0f);
+
+	GameManager::GetInstance()->LoadGUILayout("GUILayout.layout");
 }
 
 void ShipScene::exitScene(void)
